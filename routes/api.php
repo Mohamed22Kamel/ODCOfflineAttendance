@@ -24,5 +24,6 @@ Route::resource('/Category',\App\Http\Controllers\CategoryController::class);
 Route::resource('/Course',\App\Http\Controllers\CourseController::class);
 Route::resource('/StudentCourse',\App\Http\Controllers\StudentCourseController::class);
 Route::resource('/Attendance',\App\Http\Controllers\StudentAttendanceController::class);
+Route::post('/TimeSheet',[\App\Http\Controllers\StudentAttendanceController::class,"StudentTimeSheet"]);
 
 

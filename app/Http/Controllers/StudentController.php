@@ -3,18 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\StudentAttendance;
 use App\Models\StudentCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\This;
+use function PHPUnit\Framework\isNull;
+
 
 class StudentController extends Controller
 {
+
     public function index()
     {
         $Students = Student::all();
         if (empty($Students))
             return ResponseController::sendResponse($Students, 'No Students.');
-        return ResponseController::sendResponse($Students, 'Students Getted successfully.');
+        for($i = 0 ; $i < Count($Students) ; $i++){
+
+            $Attend_Id = StudentCourse::where([['Student_id', '=', $Students[$i]["id"]],['course_id','=', 8]])->get() ;
+            if ($Attend_Id->isEmpty()){
+                $Students[$i]["Attendance Times"] = 0;
+                continue;
+            }
+            $Attend_Id = $Attend_Id[0]["id"] ;
+            $Students[$i]["Attendance Times"] = Count(StudentAttendance::where('student_course_id', $Attend_Id)->get()) ;
+        }
+        return ResponseController::sendResponse($Students, 'Students Gutted successfully.');
     }
 
     public function store(Request $request)
@@ -35,7 +50,6 @@ class StudentController extends Controller
         $Students = Student::create($input);
 
         return ResponseController::sendResponse($Students, 'Student created successfully.');
-
     }
 
     public function show($id)
@@ -50,6 +64,7 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $Constrains = ['name' => 'regex:/^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$/', 'email' => 'email|unique:Instructors,email', 'image' => 'nullable|regex:/^([^!*<>]*)$/', 'phone' => 'regex:/(01)[0-9]{9}/'];
 
         $input = $request->all();
@@ -90,6 +105,14 @@ class StudentController extends Controller
 
 
     }
+
+    public static function storeStudent($request)
+    {
+        $request = new Request($request);
+//    return $request;
+        return (new self)->store($request);
+    }
+
 
     public static function getName($id)
     {
