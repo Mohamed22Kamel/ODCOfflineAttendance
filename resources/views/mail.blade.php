@@ -22,7 +22,8 @@
     </head>
     <body class="antialiased">
     <h3>Hi, {{ $name }}</h3>
-    <h4>This is Your <span style="color: orange">ODC Academy </span> Course <span style="color: green">{{$course["name"]}}</span> Attendance QR Code.</h4>
+    <h4>This is Your <span style="color: orange">ODC Academy </span> Hackathon:
+        <span style="color: green">{{$course["name"]}}</span> Attendance QR Code.</h4>
 {{--    <center><h4>Here is  Your QR</h4></center>--}}
 
     <h2 style="color: darkorange">Note : This code valid from {{$course["start"]}} To {{$course["end"]}} </h2>
