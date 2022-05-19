@@ -25,6 +25,7 @@ class MailController extends Controller
         }
     }
     public static function SendEmailWithIDs ($student_id,$code,$course_id){
+        $QR_Path = "";
         try {
             $name = StudentController::getName($student_id);
             $email = StudentController::getEmail($student_id);
