@@ -82,7 +82,7 @@ class StudentCourseController extends Controller
         if (is_null($StudentCourses)) {
             return ResponseController::sendError('StudentCourse not found.');
         }
-        if (count(StudentAttendance::where('StudentCourse_id', $id)->get()) == 0) {
+        if (count(StudentAttendance::where('student_course_id', $id)->get()) == 0) {
             $StudentCourses->delete();
             return ResponseController::sendResponse($StudentCourses, 'StudentCourse deleted successfully.');
         } else {
