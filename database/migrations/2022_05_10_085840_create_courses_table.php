@@ -26,11 +26,11 @@ return new class extends Migration
 
         DB::table('courses')->insert(
             array(
-                'name' => 'Network',
-                'description' => "Start Course in filed",
+                'name' => 'Flutter',
+                'description' => 'Hackathon For Flutter in ODC',
                 'category_id' => "1",
-                'start' => "2022-05-9",
-                'end' => "2022-05-15",
+                'start' => "2022-05-21",
+                'end' => "2022-05-26",
             )
         );
     }

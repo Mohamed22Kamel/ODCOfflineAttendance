@@ -22,7 +22,7 @@ return new class extends Migration
 
         DB::table('categories')->insert(
             array(
-                'name' => 'IT',
+                'name' => 'Hackathons',
 
             )
         );
