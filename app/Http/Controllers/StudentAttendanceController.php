@@ -29,7 +29,7 @@ class StudentAttendanceController extends Controller
 
         $validator = Validator::make($input, $Constrains);
         if ($validator->fails()) {
-            return ResponseController::sendError('Validation Error.', $validator->errors());
+            return ResponseController::sendError('Validation Error.', $validator->errors(),400);
         }
 
         $Student_Course_ID = $input['student_course_id'];
@@ -46,7 +46,7 @@ class StudentAttendanceController extends Controller
         foreach ($Attends as $attend) {
             $date = Carbon::create($attend['created_at'])->floorDay();
             if ($attend['student_course_id'] == $input['student_course_id'] && $date->eq($CurrentTime))
-                return ResponseController::sendError('Already Attended.', "You Can't ِAttend Again");
+                return ResponseController::sendError('Already Attended.', "You Can't ِAttend Again",406);
         }
         $StudentAttendance = StudentAttendance::create($input);
 
