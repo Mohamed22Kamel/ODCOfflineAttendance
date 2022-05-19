@@ -65,7 +65,14 @@ class StudentAttendanceController extends Controller
 
     public function StudentTimeSheet(Request $request)
     {
-        $input = $request->all();
+        $input = $request->query->all();
+        if (array_key_exists('Student_id', $input) && array_key_exists('Course_id', $input)) {
+            if ($input['Student_id'] == null || $input['Course_id'] == null) {
+                return ResponseController::sendError('Bad Request', 'Missing Data', 400);
+            }
+        }else{
+            return ResponseController::sendError('Bad Request', 'Missing Data', 400);
+        }
 
         $StudentCourse = StudentCourse::where([['Student_id', '=', $input['Student_id']], ['course_id', '=', $input['Course_id']]])->first();
         $Course = Course::where('id', $StudentCourse['course_id'])->first();
