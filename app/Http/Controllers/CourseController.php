@@ -61,6 +61,8 @@ class CourseController extends Controller
         $Courses->name = !array_key_exists('name', $input) ? $Courses->name : $input['name'];
         $Courses->description = !array_key_exists('description', $input) ? $Courses->description : $input['description'];
         $Courses->category_id = !array_key_exists('category_id', $input) ? $Courses->category_id : $input['category_id'];
+        $Courses->start = !array_key_exists('start', $input) ? $Courses->start : $input['start'];
+        $Courses->end = !array_key_exists('end', $input) ? $Courses->end : $input['end'];
         $Courses->save();
 
         return ResponseController::sendResponse($Courses, 'Course updated successfully.');
