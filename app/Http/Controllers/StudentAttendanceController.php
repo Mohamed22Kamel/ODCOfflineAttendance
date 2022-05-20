@@ -75,6 +75,9 @@ class StudentAttendanceController extends Controller
         }
 
         $StudentCourse = StudentCourse::where([['Student_id', '=', $input['Student_id']], ['course_id', '=', $input['Course_id']]])->first();
+        if($StudentCourse == null){
+            return ResponseController::sendError('Bad Request', 'Error Student or Course id', 400);
+        }
         $Course = Course::where('id', $StudentCourse['course_id'])->first();
 
         $NumberOfDays = Carbon::create($Course['start'])->diffInDays(Carbon::create($Course['end'])) + 1;

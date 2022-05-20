@@ -19,17 +19,21 @@ class StudentController extends Controller
         $Students = Student::all();
         if (empty($Students))
             return ResponseController::sendResponse($Students, 'No Students.');
+        
         for($i = 0 ; $i < Count($Students) ; $i++){
 
-            $Attend_Id = StudentCourse::where([['Student_id', '=', $Students[$i]["id"]],['course_id','=', 8]])->get() ;
-            if ($Attend_Id->isEmpty()){
+            $StudentCourse_Id = StudentCourse::where([['student_id', '=', $Students[$i]["id"]],['course_id','=', 1]])->get() ;
+
+            if ($StudentCourse_Id->isEmpty()){
                 $Students[$i]["Attendance Times"] = 0;
                 continue;
             }
-            $Attend_Id = $Attend_Id[0]["id"] ;
-            $Students[$i]["Attendance Times"] = Count(StudentAttendance::where('student_course_id', $Attend_Id)->get()) ;
+
+            $StudentCourse_Id = $StudentCourse_Id[0]["id"] ;
+            $Students[$i]["Attendance Times"] = Count(StudentAttendance::where('student_course_id', $StudentCourse_Id)->get()) ;
         }
         return ResponseController::sendResponse($Students, 'Students Gutted successfully.');
+
     }
 
     public function store(Request $request)
