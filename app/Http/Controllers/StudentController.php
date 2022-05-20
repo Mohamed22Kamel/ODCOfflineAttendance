@@ -34,7 +34,7 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        $Constrains = ['name' => 'required|regex:/^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$/', 'email' => 'required|email|unique:students,email', 'image' => 'nullable|regex:/^([^!*<>]*)$/', 'phone' => 'required|regex:/(01)[0-9]{9}/'];
+        $Constrains = ['name' => 'required|regex:/^[a-zA-Z\-]{3,}(?: [a-zA-Z\-]+){0,11}$/', 'email' => 'required|email|unique:students,email', 'image' => 'nullable|regex:/^([^!*<>]*)$/', 'phone' => 'required|regex:/(01)[0-9]{0,19}/'];
 
         $input = $request->all();
         $validator = Validator::make($input, $Constrains);
@@ -44,7 +44,7 @@ class StudentController extends Controller
             }
         }
         if ($validator->fails()) {
-            return ResponseController::sendError('Validation Error.', $validator->errors());
+            return ResponseController::sendError('Validation Error.', [$validator->errors(),$input]);
         }
 
         $Students = Student::create($input);
@@ -109,7 +109,6 @@ class StudentController extends Controller
     public static function storeStudent($request)
     {
         $request = new Request($request);
-//    return $request;
         return (new self)->store($request);
     }
 
