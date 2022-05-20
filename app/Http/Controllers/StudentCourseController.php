@@ -91,4 +91,9 @@ class StudentCourseController extends Controller
 
 
     }
+
+    public static function Register($request)
+    {
+        return (new self)->store($request);
+    }
 }
