@@ -9,7 +9,7 @@ class ResponseController extends Controller
     {
         $response = [
             'success' => true,
-            'status' => $code,
+            'code' => $code,
             'message' => $message,
             'data' => $result,
         ];
@@ -23,8 +23,8 @@ class ResponseController extends Controller
         $response = [
             'success' => false,
             'code' => $code,
-            'error' => $error,
-            'errorMessages' => $errorMessages,
+            'message' => $error,
+            'data' => $errorMessages,
         ];
 
         return response()->json($response, $code);

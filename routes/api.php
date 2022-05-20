@@ -27,4 +27,3 @@ Route::resource('/Attendance',\App\Http\Controllers\StudentAttendanceController:
 Route::post('/importCsv',[\App\Http\Controllers\CSVFileController::class,"importCsv"]);
 Route::get('/TimeSheet',[\App\Http\Controllers\StudentAttendanceController::class,"StudentTimeSheet"]);
 
-
