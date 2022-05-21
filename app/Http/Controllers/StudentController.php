@@ -19,7 +19,7 @@ class StudentController extends Controller
         $Students = Student::all();
         if (empty($Students))
             return ResponseController::sendResponse($Students, 'No Students.');
-        
+
         for($i = 0 ; $i < Count($Students) ; $i++){
 
             $StudentCourse_Id = StudentCourse::where([['student_id', '=', $Students[$i]["id"]],['course_id','=', 1]])->get() ;

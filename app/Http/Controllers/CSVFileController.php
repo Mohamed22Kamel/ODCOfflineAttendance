@@ -20,7 +20,7 @@ class CSVFileController extends Controller
         $customerArr = $this->csvToArray($CSVF);
         $ErrorResponses = [];
         for ($i = 0; $i < count($customerArr); $i++) {
-            $customerArr[$i]['phone'] = '0111111111';
+            $customerArr[$i]['phone'] = trim($customerArr[$i]['phone']);
             $customerArr[$i]['name'] = trim($customerArr[$i]['name']);
             $customerArr[$i]['email'] = trim($customerArr[$i]['email']);
             $R = StudentController::storeStudent($customerArr[$i]);
