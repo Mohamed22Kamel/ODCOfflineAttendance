@@ -11,13 +11,15 @@ class MailController extends Controller
 {
 
     public static function SendAttachedEmail ($name,$path , $email ,$course) {
+        ini_set('max_execution_time', 300); // 5 minutes
+
         try {
             $data = array('name'=>"$name" ,'path' => $path , 'email' => $email , 'course' => $course);
             Mail::send('mail', $data, function($message) use ($data) {
                 $data["path"] = Storage::path($data["path"]) ;
                 $message->to($data['email'], $data['name'])->subject
-                ('ODC Course Accept Inform');
-                $message->from('odchakathon@gmail.com','ODC Academy');
+                ('ODC Attendance QR');
+                $message->from('noreply@orangedigitalcenteregypt.com','Orange Digital Center');
                 $message->attach($data["path"]);
             });
         }catch (\Exception $exception){

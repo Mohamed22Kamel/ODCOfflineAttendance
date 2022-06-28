@@ -25,7 +25,7 @@ return new class extends Migration
 
         DB::table('students')->insert(
             array(
-                'name' => 'Mo Kamel',
+                'name' => 'Mohamed Kamel',
                 'email' => "mohamed22kamel@icloud.com",
                 'image' => "",
                 'phone' => '01159675941',
